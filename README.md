@@ -14,6 +14,7 @@ A lightweight, browser-based tool for building structured resume data and export
 
 ## Preview
 
+<img width="1516" height="750" alt="image" src="https://github.com/user-attachments/assets/730cfb4c-1b1c-43c7-955a-42ffbced56e0" />
 
 
 ## Getting Started
