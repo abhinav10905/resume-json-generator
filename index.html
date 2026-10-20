@@ -1,19 +1,266 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume JSON Generator</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Build structured resume data and export it as JSON or plain text for AI tools.">
+  <title>Resume JSON Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Resume JSON Generator</h1>
-        <p>Build your resume data for </p>
-    </header>
-    <main>
-        <p>Your resume build starts here</p>
-    </main>
+  <header class="topbar">
+    <a href="#" class="brand">
+      <span class="brand-icon">R</span>
+      <span>resume<span class="brand-accent">.json</span></span>
+    </a>
+    <span class="save-status" id="save-status">● Ready to build</span>
+  </header>
+
+  <main class="app-container">
+    <section class="hero">
+      <span class="eyebrow">YOUR CAREER, STRUCTURED</span>
+      <h1>Build your resume.<br><span>Let AI do more.</span></h1>
+      <p>Create structured resume data that you can share with AI tools, use for career insights, or export as a clean text resume.</p>
+    </section>
+
+    <div class="workspace">
+      <section class="editor panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">RESUME BUILDER</span>
+            <h2>Your information</h2>
+          </div>
+          <button type="button" class="button button-ghost" id="reset-btn">Reset</button>
+        </div>
+
+        <form id="resume-form">
+          <section class="form-section">
+            <h3><span class="section-number">01</span> Personal information</h3>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="fullName">Full name <span class="required">*</span></label>
+                <input id="fullName" name="fullName" type="text" placeholder="e.g. Alex Morgan" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="email">Email address <span class="required">*</span></label>
+                <input id="email" name="email" type="email" placeholder="alex@example.com" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone number</label>
+                <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
+              </div>
+              <div class="field full">
+                <label for="location">Location</label>
+                <input id="location" name="location" type="text" placeholder="City, Country">
+              </div>
+              <div class="field">
+                <label for="linkedin">LinkedIn URL</label>
+                <input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/...">
+              </div>
+              <div class="field">
+                <label for="github">GitHub URL</label>
+                <input id="github" name="github" type="url" placeholder="https://github.com/...">
+              </div>
+              <div class="field full">
+                <label for="portfolio">Portfolio / website</label>
+                <input id="portfolio" name="portfolio" type="url" placeholder="https://yourwebsite.com">
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3><span class="section-number">02</span> Professional summary</h3>
+            <div class="field">
+              <label for="summary">About you</label>
+              <textarea id="summary" name="summary" rows="4" placeholder="Summarize your experience, strengths, interests and career goals..."></textarea>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">03</span> Education</h3>
+              <button type="button" class="button button-small add-btn" data-add="education">+ Add</button>
+            </div>
+            <div id="education-list" class="repeat-list"></div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">04</span> Skills</h3>
+            </div>
+            <div class="field">
+              <label for="skills">Technical and professional skills</label>
+              <textarea id="skills" name="skills" rows="3" placeholder="JavaScript, React, Node.js, SQL, Communication..."></textarea>
+              <span class="field-hint">Separate skills with commas.</span>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">05</span> Experience</h3>
+              <button type="button" class="button button-small add-btn" data-add="experience">+ Add</button>
+            </div>
+            <div id="experience-list" class="repeat-list"></div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">06</span> Projects</h3>
+              <button type="button" class="button button-small add-btn" data-add="projects">+ Add</button>
+            </div>
+            <div id="projects-list" class="repeat-list"></div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">07</span> Certifications</h3>
+              <button type="button" class="button button-small add-btn" data-add="certifications">+ Add</button>
+            </div>
+            <div id="certifications-list" class="repeat-list"></div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">08</span> Achievements</h3>
+              <button type="button" class="button button-small add-btn" data-add="achievements">+ Add</button>
+            </div>
+            <div id="achievements-list" class="repeat-list"></div>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h3><span class="section-number">09</span> Positions & leadership</h3>
+              <button type="button" class="button button-small add-btn" data-add="positions">+ Add</button>
+            </div>
+            <div id="positions-list" class="repeat-list"></div>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" class="button button-primary">Generate resume data <span>↗</span></button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="output panel">
+        <div class="panel-heading output-heading">
+          <div>
+            <span class="eyebrow">LIVE OUTPUT</span>
+            <h2>Your resume data</h2>
+          </div>
+          <span class="live-dot">LIVE</span>
+        </div>
+
+        <div class="output-tabs" role="tablist" aria-label="Output format">
+          <button type="button" class="tab active" data-format="json" role="tab" aria-selected="true">JSON</button>
+          <button type="button" class="tab" data-format="text" role="tab" aria-selected="false">Plain text</button>
+        </div>
+
+        <div class="output-meta">
+          <span id="output-label">resume.json</span>
+          <span id="output-count">0 fields</span>
+        </div>
+
+        <pre class="output-code"><code id="output-content" aria-live="polite"></code></pre>
+
+        <div class="output-actions">
+          <button type="button" class="button button-primary button-block" id="download-btn">↓ Download output</button>
+          <button type="button" class="button button-secondary button-block" id="copy-btn">Copy to clipboard</button>
+        </div>
+
+        <div class="privacy-note">
+          <span class="privacy-icon">⌑</span>
+          <p><strong>Your data stays yours.</strong><br>Information is stored in this browser only. Nothing is sent to a server.</p>
+        </div>
+
+        <div class="output-tip">
+          <span>✦</span>
+          <p>Paste your exported resume into an AI tool to get tailored feedback, interview questions, or career suggestions.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <span>resume.json</span>
+      <span>Built for your next opportunity.</span>
+    </footer>
+  </main>
+
+  <template id="education-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading"><span>Education entry</span><button type="button" class="remove-btn">Remove</button></div>
+      <div class="form-grid">
+        <div class="field full"><label>Institution</label><input data-key="institution" placeholder="University or college"></div>
+        <div class="field"><label>Degree</label><input data-key="degree" placeholder="B.E. Computer Science"></div>
+        <div class="field"><label>Field of study</label><input data-key="field" placeholder="Computer Science"></div>
+        <div class="field"><label>Start date</label><input data-key="startDate" placeholder="2023"></div>
+        <div class="field"><label>End date</label><input data-key="endDate" placeholder="2027 or Present"></div>
+        <div class="field full"><label>Grade / CGPA</label><input data-key="grade" placeholder="9.2 CGPA"></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="experience-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading"><span>Experience entry</span><button type="button" class="remove-btn">Remove</button></div>
+      <div class="form-grid">
+        <div class="field"><label>Job title</label><input data-key="title" placeholder="Software Developer Intern"></div>
+        <div class="field"><label>Company</label><input data-key="company" placeholder="Company name"></div>
+        <div class="field"><label>Start date</label><input data-key="startDate" placeholder="Jun 2026"></div>
+        <div class="field"><label>End date</label><input data-key="endDate" placeholder="Present"></div>
+        <div class="field full"><label>Description</label><textarea data-key="description" rows="3" placeholder="Responsibilities, contributions and impact..."></textarea></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="projects-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading"><span>Project entry</span><button type="button" class="remove-btn">Remove</button></div>
+      <div class="form-grid">
+        <div class="field full"><label>Project name</label><input data-key="name" placeholder="Project name"></div>
+        <div class="field full"><label>Description</label><textarea data-key="description" rows="3" placeholder="What does it do? What problem does it solve?"></textarea></div>
+        <div class="field full"><label>Technologies</label><input data-key="technologies" placeholder="React, Node.js, MongoDB"></div>
+        <div class="field"><label>Project URL</label><input data-key="url" type="url" placeholder="https://..."></div>
+        <div class="field"><label>Repository URL</label><input data-key="repository" type="url" placeholder="https://github.com/..."></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="certifications-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading"><span>Certification entry</span><button type="button" class="remove-btn">Remove</button></div>
+      <div class="form-grid">
+        <div class="field full"><label>Certification name</label><input data-key="name" placeholder="Certification title"></div>
+        <div class="field"><label>Issuing organization</label><input data-key="issuer" placeholder="Organization"></div>
+        <div class="field"><label>Date</label><input data-key="date" placeholder="Oct 2026"></div>
+        <div class="field full"><label>Credential URL</label><input data-key="url" type="url" placeholder="https://..."></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="achievements-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading"><span>Achievement entry</span><button type="button" class="remove-btn">Remove</button></div>
+      <div class="form-grid">
+        <div class="field full"><label>Achievement</label><input data-key="title" placeholder="Award, competition or accomplishment"></div>
+        <div class="field full"><label>Description</label><textarea data-key="description" rows="2" placeholder="Explain the achievement and its impact"></textarea></div>
+        <div class="field full"><label>Date</label><input data-key="date" placeholder="2026"></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="positions-template">
+    <article class="repeat-card">
+      <div class="repeat-card-heading"><span>Leadership entry</span><button type="button" class="remove-btn">Remove</button></div>
+      <div class="form-grid">
+        <div class="field"><label>Position</label><input data-key="title" placeholder="Class Representative"></div>
+        <div class="field"><label>Organization</label><input data-key="organization" placeholder="College or organization"></div>
+        <div class="field"><label>Start date</label><input data-key="startDate" placeholder="2025"></div>
+        <div class="field"><label>End date</label><input data-key="endDate" placeholder="Present"></div>
+        <div class="field full"><label>Description</label><textarea data-key="description" rows="2" placeholder="Responsibilities and contributions"></textarea></div>
+      </div>
+    </article>
+  </template>
 </body>
 </html>
