@@ -2,15 +2,48 @@
 'use strict';
 
 const STORAGE_KEY = 'resume-json-generator-v1';
+const THEME_STORAGE_KEY = 'resume-json-generator-theme';
 
 const form = document.getElementById('resume-form');
 const outputContent = document.getElementById('output-content');
 const outputLabel = document.getElementById('output-label');
 const outputCount = document.getElementById('output-count');
-const saveStatus = document.getElementById('save-status');
+const themeToggle = document.getElementById('theme-toggle');
+const themeLabel = document.getElementById('theme-label');
 
 let currentFormat = 'json';
 let saveTimeout;
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeLabel.textContent = theme === 'dark' ? 'Light theme' : 'Dark theme';
+  themeToggle.setAttribute(
+    'aria-label',
+    `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`
+  );
+  themeToggle.querySelector('.theme-icon').textContent = theme === 'dark' ? '☼' : '☾';
+}
+
+try {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+} catch (error) {
+  console.error('Could not restore theme preference:', error);
+  applyTheme('dark');
+}
+
+themeToggle.addEventListener('click', () => {
+  const nextTheme = document.documentElement.dataset.theme === 'dark'
+    ? 'light'
+    : 'dark';
+  applyTheme(nextTheme);
+
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+  } catch (error) {
+    console.error('Could not save theme preference:', error);
+  }
+});
 
 const sections = {
   education: {
@@ -241,23 +274,16 @@ function renderOutput() {
   outputCount.textContent = `${countFields(resume)} values`;
 }
 
-function setStatus(message) {
-  saveStatus.textContent = `● ${message}`;
-}
-
 function saveToStorage() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(collectResume()));
-    setStatus('Saved locally');
   } catch (error) {
-    setStatus('Local save unavailable');
     console.error('Could not save resume data:', error);
   }
 }
 
 function scheduleSave() {
   renderOutput();
-  setStatus('Unsaved changes');
 
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(saveToStorage, 250);
@@ -331,7 +357,6 @@ form.addEventListener('submit', (event) => {
 
   renderOutput();
   saveToStorage();
-  setStatus('Resume generated');
 });
 
 document.querySelectorAll('[data-format]').forEach((button) => {
@@ -403,7 +428,6 @@ document.getElementById('reset-btn').addEventListener('click', () => {
   clearTimeout(saveTimeout);
   clearSavedResume();
   renderOutput();
-  setStatus('Ready to build');
 });
 
 try {
@@ -411,13 +435,10 @@ try {
 
   if (saved) {
     restoreResume(JSON.parse(saved));
-    setStatus('Restored from browser');
   } else {
     renderOutput();
-    setStatus('Ready to build');
   }
 } catch (error) {
   console.error('Could not restore saved resume:', error);
   renderOutput();
-  setStatus('Ready to build');
 }
