@@ -13,8 +13,9 @@
   --accent: #a3e635;
   --accent-hover: #b8f45a;
   --danger: #fb7185;
-  --body-glow: #1b2b1a;
-  --body-glow-secondary: #172238;
+  --body-glow: #263c1d;
+  --body-glow-secondary: #1b3150;
+  --body-glow-tertiary: #29203d;
   --topbar-bg: #0a0d14b8;
   --panel-bg: #111620e8;
   --card-bg: #0d121b;
@@ -45,8 +46,9 @@
   --accent: #5b851d;
   --accent-hover: #4b7015;
   --danger: #be123c;
-  --body-glow: #e7f0d7;
-  --body-glow-secondary: #e4edf5;
+  --body-glow: #e4efc9;
+  --body-glow-secondary: #dce9f8;
+  --body-glow-tertiary: #eee2f3;
   --topbar-bg: #f4f7efdb;
   --panel-bg: #ffffffed;
   --card-bg: #f8faf6;
@@ -75,9 +77,10 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(ellipse at 10% 0%, var(--body-glow) 0, transparent 34rem),
-    radial-gradient(ellipse at 95% 10%, var(--body-glow-secondary) 0, transparent 30rem),
-    var(--bg);
+    radial-gradient(ellipse at 8% 4%, var(--body-glow) 0, transparent 38rem),
+    radial-gradient(ellipse at 94% 12%, var(--body-glow-secondary) 0, transparent 36rem),
+    radial-gradient(ellipse at 52% 82%, var(--body-glow-tertiary) 0, transparent 42rem),
+    linear-gradient(135deg, var(--bg), var(--surface-raised) 50%, var(--bg));
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
   line-height: 1.6;
