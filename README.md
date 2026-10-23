@@ -12,6 +12,19 @@ A lightweight, browser-based tool for building structured resume data and export
 - **Responsive interface** with a dark theme for desktop and mobile screens.
 - **Reset option** to clear the saved draft and start over.
 
+## Interview Questions
+1. What problem does this project solve??
+2. Why did you build this??
+3. What exactly did you implement??
+4. What is the Tech stack??
+5. What about database??
+6. How are users Authorised??
+7. How did you deploy this project??
+8. What was the hardest bug??
+9. What if the users increase to 100x than usual??
+10. What is the trade-off??
+11. How would you redesign/new feature/Future ideas??  
+
 ## Preview
 
 <img width="1516" height="750" alt="image" src="https://github.com/user-attachments/assets/730cfb4c-1b1c-43c7-955a-42ffbced56e0" />
