@@ -4,9 +4,9 @@ A lightweight, browser-based tool for building structured resume data and export
 
 ## Features
 
-- **Guided 10-step form** covering personal information, summary, education, skills, experience, projects, certifications, achievements, leadership positions, and export.
+- **Single-page form** with nine sections covering personal information, summary, education, skills, experience, projects, certifications, achievements, and positions & leadership.
 - **Repeatable sections** for entries such as education, work experience, projects, certifications, achievements, and positions.
-- **Live JSON generation** to review the structured resume data before exporting.
+- **Live output panel** that updates as you type, with **JSON** and **Plain text** tabs to review the structured resume data before exporting.
 - **Download or copy** the generated JSON.
 - **Automatic draft saving** in the browser using `localStorage`, so your progress remains available in the same browser.
 - **Responsive interface** with a dark theme for desktop and mobile screens.
@@ -53,10 +53,10 @@ You can also use a local development server, such as the **Live Server** extensi
 ## How to Use
 
 1. Open the application in your browser.
-2. Fill in each resume section using **Next** and **Previous** to navigate.
-3. Add or remove entries where needed.
-4. Go to **Review & Export** to inspect the generated JSON.
-5. Select **Copy JSON** to copy the data, or **Download resume.json** to save it as a file.
+2. Fill in the resume sections on the single-page form, scrolling down through each section.
+3. Use **+ Add** and **Remove** to add or remove entries where needed.
+4. Watch the **Live Output** panel update as you type, and switch between the **JSON** and **Plain text** tabs.
+5. Select **Copy to clipboard** to copy the output, or **Download output** to save it as a file.
 
 Your draft is automatically saved in your browser. Drafts are stored locally and are not synced between browsers or devices. Clearing the browser's site data may remove the saved draft.
 
