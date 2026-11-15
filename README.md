@@ -57,6 +57,7 @@ You can also use a local development server, such as the **Live Server** extensi
 3. Use **+ Add** and **Remove** to add or remove entries where needed.
 4. Watch the **Live Output** panel update as you type, and switch between the **JSON** and **Plain text** tabs.
 5. Select **Copy to clipboard** to copy the output, or **Download output** to save it as a file.
+6. To start over, use the reset option to clear the form and the saved draft.
 
 Your draft is automatically saved in your browser. Drafts are stored locally and are not synced between browsers or devices. Clearing the browser's site data may remove the saved draft.
 
