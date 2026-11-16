@@ -790,3 +790,41 @@ footer span:first-child {
     animation: none;
   }
 }
+
+/* --- Back to Top --- */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  
+  background-color: var(--panel-bg); 
+  color: var(--accent); 
+  border: 1px solid var(--accent); 
+  
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* hidden */
+.back-to-top-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(20px);
+}
+
+/* hover */
+.back-to-top-btn:hover {
+  background-color: var(--card-bg);
+  border-color: var(--accent); 
+  transform: translateX(-50%) scale(1.08);
+}

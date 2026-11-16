@@ -613,3 +613,24 @@ try {
   console.error('Could not restore saved resume:', error);
   renderOutput();
 }
+
+
+// --- Back to Top Button ---
+const backToTopBtn = document.getElementById('backToTopBtn');
+
+if (backToTopBtn) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.remove('hidden'); 
+    } else {
+      backToTopBtn.classList.add('hidden');   
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' 
+    });
+  });
+}
