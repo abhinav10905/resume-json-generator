@@ -499,6 +499,13 @@ document.addEventListener('click', (event) => {
 
 form.addEventListener('input', scheduleSave);
 
+document.getElementById('clear-skills-btn').addEventListener('click', () => {
+  const skills = form.elements.namedItem('skills');
+  skills.value = '';
+  scheduleSave();
+  skills.focus();
+});
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
