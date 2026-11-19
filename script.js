@@ -574,8 +574,33 @@ const cancelResetBtn = document.getElementById("cancel-reset-btn");
 const confirmResetBtn = document.getElementById("confirm-reset-btn");
 const resetBtn = document.getElementById("reset-btn");
 
-// Open the confirmation dialog
+// A resume is blank when no field in it holds any text
+function isResumeBlank() {
+    return countFields(collectResume()) === 0;
+}
+
+// Clear the form, repeatable sections, saved data and output
+function resetResume() {
+    form.reset();
+
+    Object.values(sections).forEach((section) => {
+        document.getElementById(section.container).replaceChildren();
+    });
+
+    clearTimeout(saveTimeout);
+    clearSavedResume();
+    validateFullName();
+    validatePhoneNumber();
+    renderOutput();
+}
+
+// Ask for confirmation only when there is something to lose
 resetBtn.addEventListener("click", () => {
+    if (isResumeBlank()) {
+        resetResume();
+        return;
+    }
+
     resetDialog.showModal();
 });
 
@@ -593,18 +618,7 @@ resetDialog.addEventListener("cancel", (event) => {
 // Reset the resume only after confirmation
 confirmResetBtn.addEventListener("click", () => {
     resetDialog.close();
-
-    form.reset();
-
-    Object.values(sections).forEach((section) => {
-        document.getElementById(section.container).replaceChildren();
-    });
-
-    clearTimeout(saveTimeout);
-    clearSavedResume();
-    validateFullName();
-    validatePhoneNumber();
-    renderOutput();
+    resetResume();
 });
 
 
