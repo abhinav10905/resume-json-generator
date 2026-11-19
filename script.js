@@ -506,6 +506,13 @@ document.getElementById('clear-skills-btn').addEventListener('click', () => {
   skills.focus();
 });
 
+document.getElementById('clear-summary-btn').addEventListener('click', () => {
+  const summary = form.elements.namedItem('summary');
+  summary.value = '';
+  scheduleSave();
+  summary.focus();
+});
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
