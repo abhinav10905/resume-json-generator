@@ -174,6 +174,40 @@ const sections = {
   }
 };
 
+let counterId = 0;
+
+function formatCharCount(length) {
+  return `${length} ${length === 1 ? 'character' : 'characters'}`;
+}
+
+function updateCounter(textarea) {
+  const counter = textarea.nextElementSibling;
+  if (counter && counter.classList.contains('char-counter')) {
+    counter.textContent = formatCharCount(textarea.value.length);
+  }
+}
+
+function initCounter(textarea) {
+  const existing = textarea.nextElementSibling;
+
+  if (!existing || !existing.classList.contains('char-counter')) {
+    const counter = document.createElement('span');
+    counter.className = 'char-counter';
+    counter.id = `char-counter-${++counterId}`;
+    textarea.insertAdjacentElement('afterend', counter);
+    textarea.setAttribute('aria-describedby', [
+      textarea.getAttribute('aria-describedby'),
+      counter.id
+    ].filter(Boolean).join(' '));
+  }
+
+  updateCounter(textarea);
+}
+
+function refreshCounters() {
+  document.querySelectorAll('textarea[data-counter]').forEach(initCounter);
+}
+
 function addEntry(sectionName, values = {}) {
   const section = sections[sectionName];
   if (!section) return;
@@ -187,6 +221,8 @@ function addEntry(sectionName, values = {}) {
     const key = input.dataset.key;
     input.value = values[key] ?? '';
   });
+
+  card.querySelectorAll('textarea[data-counter]').forEach(initCounter);
 
   container.appendChild(fragment);
   return container.lastElementChild;
@@ -469,6 +505,7 @@ function restoreResume(resume) {
 
   validateFullName();
   validatePhoneNumber();
+  refreshCounters();
   renderOutput();
 }
 
@@ -497,7 +534,13 @@ document.addEventListener('click', (event) => {
   scheduleSave();
 });
 
-form.addEventListener('input', scheduleSave);
+form.addEventListener('input', (event) => {
+  if (event.target.matches('textarea[data-counter]')) {
+    updateCounter(event.target);
+  }
+
+  scheduleSave();
+});
 
 document.getElementById('clear-skills-btn').addEventListener('click', () => {
   const skills = form.elements.namedItem('skills');
@@ -509,6 +552,7 @@ document.getElementById('clear-skills-btn').addEventListener('click', () => {
 document.getElementById('clear-summary-btn').addEventListener('click', () => {
   const summary = form.elements.namedItem('summary');
   summary.value = '';
+  updateCounter(summary);
   scheduleSave();
   summary.focus();
 });
@@ -598,6 +642,7 @@ function resetResume() {
     clearSavedResume();
     validateFullName();
     validatePhoneNumber();
+    refreshCounters();
     renderOutput();
 }
 
@@ -628,6 +673,7 @@ confirmResetBtn.addEventListener("click", () => {
     resetResume();
 });
 
+refreshCounters();
 
 try {
   const saved = localStorage.getItem(STORAGE_KEY);
