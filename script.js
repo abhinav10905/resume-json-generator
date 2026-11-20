@@ -8,6 +8,7 @@ const form = document.getElementById("resume-form");
 const outputContent = document.getElementById("output-content");
 const outputLabel = document.getElementById("output-label");
 const outputCount = document.getElementById("output-count");
+const outputWrapper = document.getElementById("output-wrapper");
 const themeToggle = document.getElementById("theme-toggle");
 const phoneCountrySelect = document.getElementById("phoneCountry");
 const phoneInput = document.getElementById("phone");
@@ -372,7 +373,9 @@ function renderOutput() {
   outputLabel.textContent = currentFormat === 'json'
     ? 'resume.json'
     : 'resume.txt';
-  outputCount.textContent = `${countFields(resume)} values`;
+    const fieldCount = countFields(resume);
+  outputCount.textContent = `${fieldCount} values`;
+  outputWrapper.classList.toggle('is-empty', fieldCount === 0);
 }
 
 function saveToStorage() {
