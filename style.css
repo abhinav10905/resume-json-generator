@@ -376,6 +376,13 @@ select:focus-visible {
   color: var(--muted);
 }
 
+.char-counter {
+  align-self: flex-end;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .phone-row {
   display: grid;
   grid-template-columns: 124px 1fr;
