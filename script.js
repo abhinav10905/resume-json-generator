@@ -15,6 +15,7 @@ const fullNameInput = document.getElementById("fullName");
 
 let currentFormat = 'json';
 let saveTimeout;
+let dynamicFieldCounter = 0;
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -185,6 +186,14 @@ function addEntry(sectionName, values = {}) {
 
   card.querySelectorAll('[data-key]').forEach((input) => {
     const key = input.dataset.key;
+    const id = `${sectionName}-${key}-${++dynamicFieldCounter}`;
+    input.id = id;
+
+    const label = input.closest('.field')?.querySelector('label');
+    if (label) {
+      label.htmlFor = id;
+    }
+
     input.value = values[key] ?? '';
   });
 
