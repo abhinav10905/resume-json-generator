@@ -67,10 +67,10 @@ The exported file is a JSON object with the following top-level fields:
 
 | Field | Description |
 | --- | --- |
-| `personal` | Name, email, phone, location, LinkedIn, GitHub, and portfolio |
+| `personal` | Object containing full name, email, phone, location, LinkedIn, GitHub, and portfolio |
 | `summary` | Professional summary text |
 | `education` | Array of education entries |
-| `skills` | Programming languages, web technologies, databases, tools/platforms, and other skills |
+| `skills` | Flat array of skills, including programming languages, web technologies, databases, tools/platforms, and other skills |
 | `experience` | Array of work, internship, or freelance experience entries |
 | `projects` | Array of projects, including technologies, descriptions, and links |
 | `certifications` | Array of certification entries |
@@ -82,23 +82,28 @@ Example output:
 ```json
 {
   "personal": {
-    "name": "Alex Morgan",
+    "fullName": "Alex Morgan",
     "email": "alex@example.com",
-    "phone": "",
+    "phone": "+91 98765 43210",
     "location": "Bengaluru, India",
-    "linkedin": "",
-    "github": "",
-    "portfolio": ""
+    "linkedin": "https://linkedin.com/in/alexmorgan",
+    "github": "https://github.com/alexmorgan",
+    "portfolio": "https://alexmorgan.dev"
   },
   "summary": "Computer Science student interested in software development.",
   "education": [],
-  "skills": {
-    "programmingLanguages": ["Java", "Python", "JavaScript"],
-    "webTechnologies": ["HTML", "CSS", "React"],
-    "databases": ["MongoDB"],
-    "toolsAndPlatforms": ["Git", "GitHub"],
-    "other": ["Problem Solving"]
-  },
+  "skills": [
+    "Java",
+    "Python",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "React",
+    "MongoDB",
+    "Git",
+    "GitHub",
+    "Problem Solving"
+  ],
   "experience": [],
   "projects": [],
   "certifications": [],
@@ -107,7 +112,7 @@ Example output:
 }
 ```
 
-The example is illustrative; fields are populated based on the information entered in the form. Skills and project technologies are entered as comma-separated values and exported as arrays.
+The example is illustrative; fields are populated based on the information entered in the form. The `personal` object contains the user's personal information, while `skills` is exported as a flat array of strings. Optional personal fields are included only when values are provided.
 
 ## Project Structure
 
