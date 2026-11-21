@@ -37,7 +37,7 @@ A lightweight, browser-based tool for building structured resume data and export
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Rohan-Shridhar/resume-json-generator.git
+   git clone https://github.com/edulinkup-interns/resume-json-generator.git
    ```
 
 2. Open the project folder:
