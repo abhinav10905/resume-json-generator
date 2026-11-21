@@ -411,7 +411,7 @@ function renderOutput() {
   outputLabel.textContent = currentFormat === 'json'
     ? 'resume.json'
     : 'resume.txt';
-          const fieldCount = countFields(resume);
+    const fieldCount = countFields(resume);
   outputCount.textContent = `${fieldCount} values`;
   outputWrapper.classList.toggle('is-empty', fieldCount === 0);
 
@@ -592,8 +592,8 @@ document.querySelectorAll('[data-format]').forEach((button) => {
 });
 
 document.getElementById('copy-btn').addEventListener('click', async () => {
-    if (isResumeBlank()) return;
-    try {
+  if (isResumeBlank()) return;
+  try {
     await navigator.clipboard.writeText(outputContent.textContent);
     const button = document.getElementById('copy-btn');
     const previousText = button.textContent;
