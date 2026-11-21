@@ -13,6 +13,8 @@ const themeToggle = document.getElementById("theme-toggle");
 const phoneCountrySelect = document.getElementById("phoneCountry");
 const phoneInput = document.getElementById("phone");
 const fullNameInput = document.getElementById("fullName");
+const downloadBtn = document.getElementById("download-btn");
+const copyBtn = document.getElementById("copy-btn");
 
 let currentFormat = 'json';
 let saveTimeout;
@@ -409,9 +411,15 @@ function renderOutput() {
   outputLabel.textContent = currentFormat === 'json'
     ? 'resume.json'
     : 'resume.txt';
-    const fieldCount = countFields(resume);
+          const fieldCount = countFields(resume);
   outputCount.textContent = `${fieldCount} values`;
   outputWrapper.classList.toggle('is-empty', fieldCount === 0);
+
+  const isEmpty = fieldCount === 0;
+  downloadBtn.disabled = isEmpty;
+  copyBtn.disabled = isEmpty;
+  downloadBtn.title = isEmpty ? 'Fill in at least one field to download' : '';
+  copyBtn.title = isEmpty ? 'Fill in at least one field to copy' : '';
 }
 
 function saveToStorage() {
@@ -584,7 +592,8 @@ document.querySelectorAll('[data-format]').forEach((button) => {
 });
 
 document.getElementById('copy-btn').addEventListener('click', async () => {
-  try {
+    if (isResumeBlank()) return;
+    try {
     await navigator.clipboard.writeText(outputContent.textContent);
     const button = document.getElementById('copy-btn');
     const previousText = button.textContent;
@@ -601,7 +610,7 @@ document.getElementById('copy-btn').addEventListener('click', async () => {
 
 document.getElementById('download-btn').addEventListener('click', () => {
   renderOutput();
-
+  if (isResumeBlank()) return;
   const extension = currentFormat === 'json' ? 'json' : 'txt';
   const mimeType = currentFormat === 'json'
     ? 'application/json'

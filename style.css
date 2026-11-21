@@ -871,3 +871,22 @@ footer span:first-child {
     transition: none;
   }
 }
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:disabled:hover,
+.button:disabled:active {
+  transform: none;
+  box-shadow: none;
+}
+
+.button-primary:disabled:hover {
+  background: linear-gradient(135deg, #818cf8, #2763eb, #1c79c0, #5febd4);
+  border-color: rgba(95, 235, 212, 0.4);
+}
+
+.button-secondary:disabled:hover {
+  border-color: var(--border);
+}
