@@ -569,45 +569,6 @@ input.invalid {
   padding: 12px;
 }
 
-.privacy-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-top: 23px;
-  padding: 14px;
-  background: var(--soft-accent-bg);
-  border: 1px solid var(--soft-accent-line);
-  border-radius: 10px;
-}
-
-.privacy-icon {
-  color: var(--accent);
-  font-size: 21px;
-}
-
-.privacy-note p,
-.output-tip p {
-  margin: 0;
-  font-size: 10px;
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-.privacy-note strong {
-  color: var(--text);
-  font-size: 11px;
-}
-
-.output-tip {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.output-tip > span {
-  color: var(--accent);
-}
-
 footer {
   max-width: 1250px;
   margin: 50px auto 0;
