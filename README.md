@@ -116,13 +116,20 @@ The example is illustrative; fields are populated based on the information enter
 
 ## Project Structure
 
-```text
+## Project Structure
+
+```
 resume-json-generator/
-├── index.html   # Form structure and page layout
-├── style.css    # Styling and responsive layout
-├── script.js    # Form navigation, data collection, autosave, and JSON export
-└── README.md    # Project documentation
-└── LICENSE      # MIT Lincense
+├── .github/         # GitHub configuration
+├── public/
+│   └── logo.png     # Application logo
+├── countries.js     # Country data used by the form
+├── favicon.png      # Site favicon
+├── index.html       # Form structure and page layout
+├── style.css        # Styling and responsive layout
+├── script.js        # Form navigation, data collection, autosave, and JSON export
+├── README.md        # Project documentation
+└── LICENSE          # MIT License
 ```
 
 ## Technologies
